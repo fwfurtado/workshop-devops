@@ -10,12 +10,10 @@ login/docker:
 
 tag/docker: build/docker login/docker
 	$(info tagging docker image)
-	@ docker image tag workshop-devops registry.heroku.com/workshop-devops/web:$(tag)
 	@ docker image tag workshop-devops registry.heroku.com/workshop-devops/web
 
 deploy: tag/docker
 	$(info deploying via docker)
-	@ docker push registry.heroku.com/workshop-devops/web:$(tag)
 	@ docker push registry.heroku.com/workshop-devops/web
 	@ make _release/heroku
 
