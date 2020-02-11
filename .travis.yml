@@ -14,11 +14,7 @@ jobs:
       script:
         - make build/docker
     - stage: deploy
-      if: tag IS present
+#      if: tag IS present
       name: 'Deploy application on heroku'
-      before_script:
-        - docker login --username=_ --password=$HEROKU_AUTH_TOKEN registry.heroku.com
       script:
-        - make tag/docker tag=registry.heroku.com/workshop-devops/web
-      after_script:
-        - docker push registry.heroku.com/workshop-devops/web
+        - make deploy
