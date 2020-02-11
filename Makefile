@@ -22,7 +22,7 @@ deploy: tag/docker
 _release/heroku:
 	$(info sending to heroku)
 	@ curl -X PATCH \
-	-d '{"updates": [{"type": "web", "docker_image": "$(docker image inspect registry.heroku.com/workshop-devops/web --format={{.Id}})"}]}' \
-	-H 'Content-Type: application/json'
-	-H 'Accept: application/vnd.heroku+json; version=3.docker-releases'
-	PATCH https://api.heroku.com/apps/workshop-devops/formation
+	-d '{"updates": [{"type": "web", "docker_image": "$(shell docker image inspect registry.heroku.com/workshop-devops/web --format={{.Id}} |  sed -r s/sha256://g )"}]}' \
+	-H 'Content-Type: application/json' \
+	-H 'Accept: application/vnd.heroku+json; version=3.docker-releases' \
+	https://api.heroku.com/apps/workshop-devops/formation
